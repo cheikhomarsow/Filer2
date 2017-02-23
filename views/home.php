@@ -9,7 +9,7 @@
     	<div id="container">
     	
         	<div id="containe_box">
-        		<p>Hello <?php echo $username ?>, allez sur 'My files' pour ajouter, supprimer ou modifier un fichier</p>
+        		<p>Hello <?php echo $username ?>, allez sur <a href='?action=profil'>'My files'</a> pour ajouter, supprimer ou modifier un fichier</p>
         	</div>	
         </div>	
     </body>
