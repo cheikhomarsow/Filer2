@@ -9,7 +9,6 @@ function login_action()
     {
         if (user_check_login($_POST))
         {
-            echo "ok";    
             user_login($_POST['username']);
             header('Location: ?action=home');
             exit(0);

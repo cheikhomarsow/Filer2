@@ -1,11 +1,9 @@
 <?php
 	require_once('model/db.php');
 
-	function get_file_by_id($id, $id_user)
+	function get_file_by_id()
 	{
-	    $id = (int)$id;
-	    $data = find_one("SELECT * FROM files WHERE id = ".$id." AND id_user = ".$id_user);
-	    return $data;
+	    return true;
 	}
 
 	function get_file_by_name($file_name, $id_user)
@@ -17,4 +15,5 @@
 	                            ]);
 	    return $data;
 	}
+
 ?>
