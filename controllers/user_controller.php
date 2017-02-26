@@ -55,12 +55,3 @@ function profil_action() {
         exit(0);
     }
 }
-
-function addFile()
-{
-    $error = '';
-    if (isset($_POST['sumbit_add_file']))
-    {
-       $error = 'ok';
-    }
-}

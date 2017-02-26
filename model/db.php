@@ -28,7 +28,6 @@ function get_dbh()
 
 function db_insert($table, $data = [])
 {
-    echo 'dans la focntion db_insert()';
     $dbh = get_dbh();
     $query = 'INSERT INTO `' . $table . '` VALUES ("",';
     $first = true;

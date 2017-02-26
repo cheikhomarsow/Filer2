@@ -54,6 +54,7 @@ function user_register($data)
     $user['lastname'] = $data['lastname'];
     $user['secret_ask'] = $data['secret_ask'];
     $user['secret_answer'] = $data['secret_answer'];
+    mkdir('uploads/'.$user["username"]);
     db_insert('users', $user);
 }
 
