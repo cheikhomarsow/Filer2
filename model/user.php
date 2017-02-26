@@ -79,6 +79,7 @@ function user_login($username)
     if ($data === false)
         return false;
     $_SESSION['user_id'] = $data['id'];
+    $_SESSION['user_username'] = $data['username'];
     return true;
 }
 ?>
