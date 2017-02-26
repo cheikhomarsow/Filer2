@@ -7,7 +7,6 @@ function home_action()
     if (!empty($_SESSION['user_id']))
     {
         $user = get_user_by_id($_SESSION['user_id']);
-        //$user = get_user_by_id(1);
         $username = $user['username'];
         require('views/header.php');
         require('views/home.php');
@@ -26,4 +25,9 @@ function about_action()
 function contact_action()
 {
     require('views/contact.html');
+}
+
+function profil_action()
+{
+    require('views/profil.php');
 }

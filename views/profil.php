@@ -9,15 +9,21 @@
       <div id="container">
         <?php require('header.php'); ?>
         <div id="containe_box">
-            <?php if (!empty($error)): ?>
-                <p>Error : <?php echo $error . "blabla"; ?></p>
-            <?php endif; ?>
+            <?php 
+                require_once('model/profil.php');
+
+                if(!empty($error)){
+                    echo $error;
+                }else{
+                    echo "vide";
+                }
+            ?>
              <div id="add_file">
                 <h5><img src='img/file.png' alt='settings'/>&nbsp;&nbsp;Ajouter un fichier</h5>
                 <p class='welcome'><b>Formats acceptés : </b>pdf, jpg, jpeg, png, txt</p>
                 <form action="?action=profil" method="POST" enctype="multipart/form-data">
                     <input type="file" name="file" >
-                    <input type="submit" name="sumbit" value="Ajouter">
+                    <input type="submit" name="sumbit_add_file" value="Ajouter">
                 </form>
             </div>
         </div>

@@ -7,7 +7,7 @@ $routes = [
     'register' => 'user',
     'login'    => 'user',
     'logout'   => 'user',
-    'profil'   => 'user',
+    'profil'   => 'profil',
 ];
 
 $db_config = [
