@@ -45,13 +45,3 @@ function register_action()
     }
     require('views/register.php');
 }
-
-function profil_action() { 
-	if (!empty($_SESSION['user_id']))
-    {
-    	require('views/profil.php'); 
-    }else{
-    	header('Location: ?action=login');
-        exit(0);
-    }
-}

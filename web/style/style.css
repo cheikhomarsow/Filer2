@@ -19,7 +19,7 @@ body {
 }
 #containe_box{
   padding : 60px 10px;
-  width: 60%;
+  width: 70%;
   margin: auto;
   border: 1px #f4f7f8;
   background: #FFFFFF;
@@ -34,6 +34,24 @@ body {
 #add_file, #other_params{
   border: 1px solid #F1F1F1;
   width: 50%;
+}
+#my_files{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-flow : row wrap;
+}
+.files{
+  width: 25%;
+  border: 1px solid black;
+  display: flex;
+  flex-direction : column;
+  text-align: center;
+}
+
+.files .img{
+  width: 100%;
 }
 .welcome{
   font-size: small;
