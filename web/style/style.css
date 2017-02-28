@@ -31,7 +31,7 @@ body {
   display: flex;
   justify-content: space-between;
 }
-#add_file, #other_params{
+#add_file_box, #other_params{
   border: 1px solid #F1F1F1;
   width: 50%;
 }
@@ -44,10 +44,12 @@ body {
 }
 .files{
   width: 25%;
-  border: 1px solid black;
+  border: 1px solid #f4f7f8;
+  border-radius: 10px; 
   display: flex;
   flex-direction : column;
   text-align: center;
+  margin: 5px;
 }
 
 .files .img{
@@ -57,7 +59,27 @@ body {
   font-size: small;
   color : #24292E;
 }
+#form_delete,.none, #form_for_add_file{
+  display: none;
+}
 
+#add_file{
+  cursor : pointer;
+}
+.icons{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.icons span{
+  width : 100px;
+  margin-top: 5px;
+}
+.file_name{
+  width : 100%;
+  border-bottom: 2px solid #4bc970;
+  padding-bottom: 5px;
+}
 nav ul{
   width : 100%;
   display: flex;

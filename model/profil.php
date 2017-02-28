@@ -69,7 +69,20 @@
 	    return $datetime->format('Y\-m\-d\ h:i:s');
 	}
 
-	function delete($file_url){
-		
+	function delete_file(){
+		$bool = false;
+		if(isset($_POST['submit_delete_file'])){
+			if($_POST['file_to_delete'] != ''){
+				$id_user = $_SESSION['user_id'];
+				$file_url = $_POST['file_to_delete'];
+				if(!delete_one_secure("DELETE FROM files WHERE file_url = :file_url AND id_user = :id_user",
+                            ['file_url' => $file_url,
+                             'id_user' => $id_user])){
+					unlink($file_url);
+					$bool = true;
+				}
+			}
+		}
+		return $bool;
 	}
 ?>
