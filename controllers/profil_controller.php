@@ -6,11 +6,17 @@
 	{
 		$add_file_succes = ''; 
 		$delete_file_succes = '';
+		$add_folder_message = '';
+		$folder = '';
+		$rename = '';
 
 		if (!empty($_SESSION['user_id']))
 	    {
 		    if(add_file()){
 		    	$add_file_succes = 'Fichier ajouté avec succés';
+		    }
+		    if(rename_file()){
+		    	header('Location: ?action=profil');
 		    }
 		    
 		    $my_files = my_files();
@@ -22,6 +28,15 @@
 		    if(delete_file()){
 		    	header('Location: ?action=profil');
 		    }
+		    if(add_folder()){
+		    	$folder = 'hahaha';
+		    }
+
+		    /*if(strlen($folders) == 0){
+		    	$folder = 'hahaha';
+		    }else{
+		    	$folder = 'hihihi';
+		    }*/
 
 		    require_once('views/profil.php');
 	    }else{
@@ -29,5 +44,4 @@
 	        exit(0);
 	    }  
 	}
-
 ?>

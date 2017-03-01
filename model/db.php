@@ -63,14 +63,6 @@ function find_one_secure($query, $data = [])
     return $result;
 }
 
-function delete_one_secure($query, $data = [])
-{
-    $dbh = get_dbh();
-    $sth = $dbh->prepare($query);
-    $sth->execute($data);
-    return ($sth->fetch(PDO::FETCH_ASSOC));
-}
-
 function find_all($query)
 {
     $dbh = get_dbh();

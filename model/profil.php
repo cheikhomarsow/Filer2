@@ -75,7 +75,7 @@
 			if($_POST['file_to_delete'] != ''){
 				$id_user = $_SESSION['user_id'];
 				$file_url = $_POST['file_to_delete'];
-				if(!delete_one_secure("DELETE FROM files WHERE file_url = :file_url AND id_user = :id_user",
+				if(!find_one_secure("DELETE FROM files WHERE file_url = :file_url AND id_user = :id_user",
                             ['file_url' => $file_url,
                              'id_user' => $id_user])){
 					unlink($file_url);
@@ -85,4 +85,44 @@
 		}
 		return $bool;
 	}
+
+	function rename_file(){
+		$bool = false;
+		if(isset($_POST['submit_rename_file'])){
+			if($_POST['current_file_name'] != '' && $_POST['file_to_rename'] != '' && $_POST['new_file_name'] != ''){
+				$id_user = $_SESSION['user_id'];
+				$current_file_name = $_POST['current_file_name'];
+				$current_file_url = $_POST['file_to_rename'];
+
+				$file_name = $_POST['new_file_name'];
+				$file_url = substr($current_file_url, 0, -(strlen($current_file_name))).$file_name;
+				if(!find_one_secure("UPDATE files SET file_name = :file_name , file_url = :file_url  WHERE id_user = :id_user AND file_url = :current_file_url",
+                            ['file_name' => $file_name,
+                             'file_url' => $file_url,
+                             'current_file_url' => $current_file_url,
+                             'id_user' => $id_user])){
+					rename($current_file_url, $file_url);
+					$bool = true;
+				}
+			}
+		}
+		return $bool;
+	}
+
+	$folders = '';
+
+	function add_folder(){
+		$bool = false;
+		if(isset($_POST['sumbit_add_folder'])){
+			if(isset($_POST['new_folder_name']) AND $_POST['new_folder_name'] !== ''){
+				$name_folder = $_POST['new_folder_name'];
+				mkdir('uploads/'.$_SESSION['user_username'].'/'.$name_folder);
+				$folders[] = $name_folder;
+				$cpt++;
+				$bool = true;
+			}
+		}
+		return $bool;
+	}
+
 ?>
