@@ -21,7 +21,7 @@
 
                     
                     ?>
-                    <h5><img src='web/img/upload.png' alt='settings'/>&nbsp;&nbsp;Créer un dossier</h5>
+                    <h5 id='add_folder'><img src='web/img/folder.png' alt='settings'/>&nbsp;&nbsp;Créer un dossier</h5>
                     <h5 id="add_file"><img src='web/img/upload.png' alt='settings'/>&nbsp;&nbsp;Ajouter un fichier</h5>
                     <div id='form_for_add_file'>
                         <p class='welcome'><b>Formats acceptés : </b>pdf, jpg, jpeg, png, txt</p>
@@ -30,7 +30,7 @@
                             <input type="submit" name="sumbit_add_file" value="Ajouter">
                         </form>
                     </div>    
-                    <div id='form_for_add_folder'>
+                    <div class='none' id='form_for_add_folder'>
                         <form action="?action=profil" method="POST">
                             <input type="text" name="new_folder_name" placeHolder="Nom du dossier">
                             <input type="submit" name="sumbit_add_folder" value="Valider">
@@ -45,7 +45,6 @@
                     </div>
                 </div>
             </div>
-            <?php echo $_SESSION['user_username']; ?>
             <div id="my_files">
                 <?php
                     foreach($my_files as $file){
@@ -61,8 +60,7 @@
                                         </div>
                                         <input class='none' type='text' name='file_to_delete' value='".$file['file_url']."'>
                                         <input class='none' type='submit' name='submit_delete_file' id='".$file['file_url']."'>
-                                    </form>
-                                    <form action='?action=profil' method='POST'>
+                                    
                                         <input class = 'none' type='text' name='current_file_name' value='".$file['file_name']."'>
                                         <input class = 'none' type='text' name='file_to_rename' value='".$file['file_url']."'>
                                         <input class = 'rename_box' type='text' name='new_file_name' placeHolder='Nouveau nom du fichier'>

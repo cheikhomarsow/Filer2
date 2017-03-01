@@ -96,14 +96,17 @@
 
 				$file_name = $_POST['new_file_name'];
 				$file_url = substr($current_file_url, 0, -(strlen($current_file_name))).$file_name;
-				if(!find_one_secure("UPDATE files SET file_name = :file_name , file_url = :file_url  WHERE id_user = :id_user AND file_url = :current_file_url",
+				if(!file_exist($file_url)){
+					if(!find_one_secure("UPDATE files SET file_name = :file_name , file_url = :file_url  WHERE id_user = :id_user AND file_url = :current_file_url",
                             ['file_name' => $file_name,
                              'file_url' => $file_url,
                              'current_file_url' => $current_file_url,
                              'id_user' => $id_user])){
-					rename($current_file_url, $file_url);
-					$bool = true;
+						rename($current_file_url, $file_url);
+						$bool = true;
+					}
 				}
+				
 			}
 		}
 		return $bool;
