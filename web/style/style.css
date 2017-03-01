@@ -59,7 +59,7 @@ body {
   font-size: small;
   color : #24292E;
 }
-#form_delete,.none, #form_for_add_file{
+#form_delete,.none, #form_for_add_file, .rename_box{
   display: none;
 }
 

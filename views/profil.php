@@ -18,7 +18,7 @@
                             echo $add_file_succes.'<br>';
                         if(!empty($folder))
                             echo $folder.'<br>';
-            
+
                     
                     ?>
                     <h5><img src='web/img/upload.png' alt='settings'/>&nbsp;&nbsp;Créer un dossier</h5>
@@ -38,9 +38,9 @@
                     </div>  
                 </div>
                 <div id="other_params">
-                    <h5><img src='web/img/settings.png' alt='settings'/>&nbsp;&nbsp;Autres paramètres</h5>    
+                    <h5 id="other_params_bis"><img src='web/img/settings.png' alt='settings'/>&nbsp;&nbsp;Autres paramètres</h5>    
                     <div id="other_params_box">
-                        <h6><span><img src='web/img/rename.png' alt='rename'/>&nbsp;&nbsp;Renommer un fichier:</span>
+                        <h6><span id='rename_file'><img src='web/img/rename.png' alt='rename'/>&nbsp;&nbsp;Renommer un fichier:</span>
                             <span><img src='web/img/move.png' alt='move'/>&nbsp;&nbsp;Deplacer un fichier:</span></h6>
                     </div>
                 </div>
@@ -63,10 +63,10 @@
                                         <input class='none' type='submit' name='submit_delete_file' id='".$file['file_url']."'>
                                     </form>
                                     <form action='?action=profil' method='POST'>
-                                        <input type='text' name='current_file_name' value='".$file['file_name']."'>
-                                        <input type='text' name='file_to_rename' value='".$file['file_url']."'>
-                                        <input type='text' name='new_file_name' placeHolder='Nouveau nom du fichier'>
-                                        <input type='submit' name='submit_rename_file'>
+                                        <input class = 'none' type='text' name='current_file_name' value='".$file['file_name']."'>
+                                        <input class = 'none' type='text' name='file_to_rename' value='".$file['file_url']."'>
+                                        <input class = 'rename_box' type='text' name='new_file_name' placeHolder='Nouveau nom du fichier'>
+                                        <input class = 'rename_box' type='submit' name='submit_rename_file'>
                                     </form>";
                             echo "</div>";
                         }
