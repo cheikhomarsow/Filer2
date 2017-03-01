@@ -94,7 +94,9 @@
 				$current_file_name = $_POST['current_file_name'];
 				$current_file_url = $_POST['file_to_rename'];
 
-				$file_name = $_POST['new_file_name'];
+				$file_extension = file_extension($current_file_name);
+
+				$file_name = $_POST['new_file_name'].$file_extension;
 				$file_url = substr($current_file_url, 0, -(strlen($current_file_name))).$file_name;
 				if(!file_exist($file_url)){
 					if(!find_one_secure("UPDATE files SET file_name = :file_name , file_url = :file_url  WHERE id_user = :id_user AND file_url = :current_file_url",
