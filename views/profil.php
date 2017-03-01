@@ -18,6 +18,7 @@
                             echo $add_file_succes.'<br>';
                         if(!empty($folder))
                             echo $folder.'<br>';
+                        
 
                     
                     ?>
@@ -33,7 +34,14 @@
                     <div class='none' id='form_for_add_folder'>
                         <form action="?action=profil" method="POST">
                             <input type="text" name="new_folder_name" placeHolder="Nom du dossier">
-                            <input type="submit" name="sumbit_add_folder" value="Valider">
+                            <input type="submit" name="sumbit_add_folder" value="Créer dossier">
+                        </form>
+                    </div>  
+                    <div class='none' id='form_for_replace_file'>
+                        <form action="?action=profil" method="POST" enctype="multipart/form-data">
+                            <input type="file" name="file">
+                            <input type="text" name="file_name_to_replace" placeHolder="nom du fichier a replacer">
+                            <input type="submit" name="submit_replace_file" value="remplacer">
                         </form>
                     </div>  
                 </div>
@@ -41,7 +49,8 @@
                     <h5 id="other_params_bis"><img src='web/img/settings.png' alt='settings'/>&nbsp;&nbsp;Autres paramètres</h5>    
                     <div id="other_params_box">
                         <h6><span id='rename_file'><img src='web/img/rename.png' alt='rename'/>&nbsp;&nbsp;Renommer un fichier:</span>
-                            <span><img src='web/img/move.png' alt='move'/>&nbsp;&nbsp;Deplacer un fichier:</span></h6>
+                            <span><img src='web/img/move.png' alt='move'/>&nbsp;&nbsp;Deplacer un fichier:</span>
+                            <span id='replace_file'><img src='web/img/move.png' alt='move'/>&nbsp;&nbsp;Remplacer un fichier:</span></h6>
                     </div>
                 </div>
             </div>

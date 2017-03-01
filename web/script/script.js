@@ -7,12 +7,17 @@ window.onload = function(){
 
 	var rename_box = document.querySelectorAll(".rename_box");
     var rename_file = document.querySelector("#rename_file");
+
+    var add_folder = document.querySelector('#add_folder');
+	var form_for_add_folder = document.querySelector('#form_for_add_folder');
+
+    var form_for_replace_file = document.querySelector("#form_for_replace_file");
+    var replace_file = document.querySelector("#replace_file");
 	
 	add_file.onclick = function(){
 		form_for_add_file.style.display = "block";
 	}
 	other_params_bis.onclick = function(){
-		console.log('a');
 		other_params_box.style.display = "flex";
 	}
 
@@ -21,4 +26,12 @@ window.onload = function(){
             rename_box[i].style.display = 'block';
         }
     }
+    
+    add_folder.onclick = function(){
+		form_for_add_folder.style.display = "block";
+	}
+
+	replace_file.onclick = function(){
+		form_for_replace_file.style.display = "block";
+	}
 };

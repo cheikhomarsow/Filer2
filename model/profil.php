@@ -34,9 +34,26 @@
                              'id_user' => $id_user]);
     	return $data;
 	}
+	function get_file_by_file_name($file_name)
+	{
+		$id_user = $_SESSION['user_id'];
+    	$data = find_one_secure("SELECT * FROM files WHERE file_name = :file_name AND 
+    								id_user = :id_user",
+                            ['file_name' => $file_name,
+                             'id_user' => $id_user]);
+    	return $data;
+	}
 
 	function file_exist($url){
 		$data = get_file_by_file_url($url);
+    	if ($data == false){
+        	return false;
+    	}
+    	return true;
+	}
+
+	function file_exist_by_name($name){
+		$data = get_file_by_file_name($name);
     	if ($data == false){
         	return false;
     	}
@@ -93,9 +110,7 @@
 				$id_user = $_SESSION['user_id'];
 				$current_file_name = $_POST['current_file_name'];
 				$current_file_url = $_POST['file_to_rename'];
-
 				$file_extension = file_extension($current_file_name);
-
 				$file_name = $_POST['new_file_name'].$file_extension;
 				$file_url = substr($current_file_url, 0, -(strlen($current_file_name))).$file_name;
 				if(!file_exist($file_url)){
@@ -108,7 +123,43 @@
 						$bool = true;
 					}
 				}
-				
+			}
+		}
+		return $bool;
+	}
+
+	function replace_file(){
+		$bool = false;
+		if(isset($_POST['submit_replace_file'])){
+			if(isset($_FILES['file']['name']) && !empty($_FILES) 
+				&& $_POST['file_name_to_replace'] !== ''){
+				$id_user = $_SESSION['user_id'];
+				$file_tmp_name = $_FILES['file']['tmp_name'];
+				$file_name_to_replace = $_POST['file_name_to_replace'];
+				$new_file_name = $_FILES['file']['name'];
+				if(file_exist_by_name($file_name_to_replace) && 
+					$new_file_name !== '' ){
+					if(!file_exist_by_name($new_file_name)){
+						$data = get_file_by_file_name($file_name_to_replace);
+						$file_url = $data['file_url'];
+						var_dump('actuel url : '.$file_url.'<br>');
+						$new_file_url = substr($file_url, 0, -(strlen($file_name_to_replace))).$new_file_name;
+						var_dump('nouveau url :'.$new_file_url.'<br>');
+						var_dump('nouveau nom fichier : '.$new_file_name.'<br>');
+						var_dump('nom fichier a remplacer : '.$file_name_to_replace.'<br>');
+						var_dump($id_user);
+						if(!find_one_secure("UPDATE files SET file_name = :new_file_name , file_url = :new_file_url  WHERE id_user = :id_user AND file_name = :file_name_to_replace",
+                            ['new_file_name' => $new_file_name,
+                             'new_file_url' => $new_file_url,
+                             'file_name_to_replace' => $file_name_to_replace,
+                             'id_user' => $id_user])){
+							move_uploaded_file($file_tmp_name,$new_file_url);
+                            unlink($file_url);
+                            $bool = true;
+						}
+
+					}
+				}
 			}
 		}
 		return $bool;

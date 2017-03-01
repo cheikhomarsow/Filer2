@@ -9,6 +9,7 @@
 		$add_folder_message = '';
 		$folder = '';
 		$rename = '';
+		$replace = '';
 
 		if (!empty($_SESSION['user_id']))
 	    {
@@ -30,6 +31,10 @@
 		    }
 		    if(add_folder()){
 		    	$folder = 'hahaha';
+		    }
+
+		    if(replace_file()){
+		    	header('Location: ?action=profil');
 		    }
 
 		    /*if(strlen($folders) == 0){
