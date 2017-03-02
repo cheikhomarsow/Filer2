@@ -6,20 +6,35 @@
 		$bool = false;
 		if(isset($_POST['sumbit_add_file'])){
 			if(isset($_FILES['file']['name']) && !empty($_FILES)){
-			
-    			$file['file_name'] = $_FILES['file']['name'];
-                $file_tmp_name = $_FILES['file']['tmp_name'];
-                $file['url'] = 'uploads/'.$_SESSION['user_username'] . '/' . $file["file_name"];
- 				$file['id_user'] = $_SESSION['user_id'];
- 				$file['date'] = getDatetimeNow();
+				$file_tmp_name = $_FILES['file']['tmp_name'];
+				if($_POST['nickname'] == ''){
+					$file['file_name'] = $_FILES['file']['name'];
+	                $file['url'] = 'uploads/'.$_SESSION['user_username'] . '/' . $file["file_name"];
+	 				$file['id_user'] = $_SESSION['user_id'];
+	 				$file['date'] = getDatetimeNow();
 
- 				if(extension_accept($file['file_name'])){
- 					if(!file_exist($file['url'])){
-	 					db_insert('files', $file);
-	 					move_uploaded_file($file_tmp_name, $file['url']);
-	 					$bool = true;
- 					}
- 				}	
+	 				if(extension_accept($file['file_name'])){
+	 					if(!file_exist($file['url'])){
+		 					db_insert('files', $file);
+		 					move_uploaded_file($file_tmp_name, $file['url']);
+		 					$bool = true;
+	 					}
+	 				}	
+				}else{
+					$name_die = $_FILES['file']['name'];
+					$extension = file_extension($name_die);
+					$file['file_name'] = $_POST['nickname'].$extension;
+					$file['url'] = 'uploads/'.$_SESSION['user_username'] . '/' . $file["file_name"];
+	 				$file['id_user'] = $_SESSION['user_id'];
+	 				$file['date'] = getDatetimeNow();
+	 				if(extension_accept($file['file_name'])){
+	 					if(!file_exist($file['url'])){
+		 					db_insert('files', $file);
+		 					move_uploaded_file($file_tmp_name, $file['url']);
+		 					$bool = true;
+	 					}
+	 				}
+				}
 			}
 		}
 		return $bool;
@@ -142,12 +157,7 @@
 					if(!file_exist_by_name($new_file_name)){
 						$data = get_file_by_file_name($file_name_to_replace);
 						$file_url = $data['file_url'];
-						var_dump('actuel url : '.$file_url.'<br>');
 						$new_file_url = substr($file_url, 0, -(strlen($file_name_to_replace))).$new_file_name;
-						var_dump('nouveau url :'.$new_file_url.'<br>');
-						var_dump('nouveau nom fichier : '.$new_file_name.'<br>');
-						var_dump('nom fichier a remplacer : '.$file_name_to_replace.'<br>');
-						var_dump($id_user);
 						if(!find_one_secure("UPDATE files SET file_name = :new_file_name , file_url = :new_file_url  WHERE id_user = :id_user AND file_name = :file_name_to_replace",
                             ['new_file_name' => $new_file_name,
                              'new_file_url' => $new_file_url,
@@ -165,6 +175,7 @@
 		return $bool;
 	}
 
+
 	$folders = '';
 
 	function add_folder(){
@@ -180,5 +191,6 @@
 		}
 		return $bool;
 	}
+
 
 ?>

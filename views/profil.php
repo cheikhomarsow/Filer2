@@ -18,17 +18,14 @@
                             echo $add_file_succes.'<br>';
                         if(!empty($folder))
                             echo $folder.'<br>';
-                        
-
-                    
                     ?>
-                    <h5 id='add_folder'><img src='web/img/folder.png' alt='settings'/>&nbsp;&nbsp;Créer un dossier</h5>
-                    <h5 id="add_file"><img src='web/img/upload.png' alt='settings'/>&nbsp;&nbsp;Ajouter un fichier</h5>
+                    <h5 id='add_file_or_folder'><span id='add_folder'><img src='web/img/folder.png' alt='settings'/>&nbsp;&nbsp;Créer un dossier</span><span id='add_file'><img src='web/img/upload.png' alt='settings'/>&nbsp;&nbsp;Ajouter un fichier</span></h5>
                     <div id='form_for_add_file'>
                         <p class='welcome'><b>Formats acceptés : </b>pdf, jpg, jpeg, png, txt</p>
                         <form action="?action=profil" method="POST" enctype="multipart/form-data">
-                            <input type="file" name="file" >
-                            <input type="submit" name="sumbit_add_file" value="Ajouter">
+                            <input type="file" name="file"><br>
+                            <input type="text" name="nickname" placeHolder="nommer le fichier (Laisser vide sinon)">
+                            <label for='input_add_file_none'><img class='others_icons' src='web/img/upload2.png' ></label><input id='input_add_file_none' class='none' type="submit" name="sumbit_add_file" value="Ajouter">
                         </form>
                     </div>    
                     <div class='none' id='form_for_add_folder'>
@@ -37,21 +34,21 @@
                             <input type="submit" name="sumbit_add_folder" value="Créer dossier">
                         </form>
                     </div>  
-                    <div class='none' id='form_for_replace_file'>
-                        <form action="?action=profil" method="POST" enctype="multipart/form-data">
-                            <input type="file" name="file">
-                            <input type="text" name="file_name_to_replace" placeHolder="nom du fichier a replacer">
-                            <input type="submit" name="submit_replace_file" value="remplacer">
-                        </form>
-                    </div>  
                 </div>
                 <div id="other_params">
                     <h5 id="other_params_bis"><img src='web/img/settings.png' alt='settings'/>&nbsp;&nbsp;Autres paramètres</h5>    
                     <div id="other_params_box">
                         <h6><span id='rename_file'><img src='web/img/rename.png' alt='rename'/>&nbsp;&nbsp;Renommer un fichier:</span>
                             <span><img src='web/img/move.png' alt='move'/>&nbsp;&nbsp;Deplacer un fichier:</span>
-                            <span id='replace_file'><img src='web/img/move.png' alt='move'/>&nbsp;&nbsp;Remplacer un fichier:</span></h6>
+                            <span id='replace_file'><img src='web/img/replace.png' alt='move'/>&nbsp;&nbsp;Remplacer un fichier:</span></h6>
                     </div>
+                     <div class='none' id='form_for_replace_file'>
+                        <form action="?action=profil" method="POST" enctype="multipart/form-data">
+                            <input type="file" name="file">
+                            <input type="text" name="file_name_to_replace" placeHolder="nom du fichier a replacer">
+                            <label for='input_replace_file_none'><img id='input_replace_file_none' class='others_icons' src='web/img/replace2.png' ></label><input type="submit" class='none' name="submit_replace_file" value="remplacer">
+                        </form>
+                    </div>  
                 </div>
             </div>
             <div id="my_files">
@@ -64,7 +61,7 @@
                             echo "<form action='?action=profil' method='POST'>
                                         <div class='file_name'>".$file['file_name']."</div>
                                         <div class='icons'>    
-                                            <span><label for='".$file['file_url']."'><img src='web/img/delete.png' title='supprimer' alt='settings'/></label></span>
+                                            <span><label for='".$file['file_url']."'><img title='supprimer' src='web/img/delete.png' title='supprimer' alt='settings'/></label></span>
                                             <span><a href='".$file['file_url']."' download><img src='web/img/download.png' alt='download'/></a></span>
                                         </div>
                                         <input class='none' type='text' name='file_to_delete' value='".$file['file_url']."'>

@@ -63,7 +63,7 @@ body {
   display: none;
 }
 
-#add_file, #other_params{
+#add_file, #other_params, #add_folder{
   cursor : pointer;
 }
 .icons{
@@ -80,18 +80,24 @@ body {
   border-bottom: 2px solid #4bc970;
   padding-bottom: 5px;
 }
+#other_params_bis{
+  text-align: center;
+}
 #other_params_box{
   width: 100%;
   display: none;
 }
-#other_params_box h6{
+#other_params_box h6, #add_file_or_folder{
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-#other_params_box h6 span{
+#other_params_box h6 span,  #add_file_or_folder span{
   width: 50%;
   text-align: center;
+}
+.others_icons{
+  margin-left: 45%;
 }
 nav ul{
   width : 100%;
