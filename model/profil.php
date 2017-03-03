@@ -7,9 +7,15 @@
 		if(isset($_POST['sumbit_add_file'])){
 			if(isset($_FILES['file']['name']) && !empty($_FILES)){
 				$file_tmp_name = $_FILES['file']['tmp_name'];
+				$directory = $_POST['directory'];
+				$default_choice = 'ajouter_dans_un_dossier';
 				if($_POST['nickname'] == ''){
 					$file['file_name'] = $_FILES['file']['name'];
-	                $file['url'] = 'uploads/'.$_SESSION['user_username'] . '/' . $file["file_name"];
+					if($directory != $default_choice){
+						$file['url'] = 'uploads/'.$_SESSION['user_username'] . '/' . $directory .'/' . $file["file_name"];
+					}else{
+						$file['url'] = 'uploads/'.$_SESSION['user_username'] . '/' . $file["file_name"];
+					}
 	 				$file['id_user'] = $_SESSION['user_id'];
 	 				$file['date'] = getDatetimeNow();
 
@@ -24,7 +30,11 @@
 					$name_die = $_FILES['file']['name'];
 					$extension = file_extension($name_die);
 					$file['file_name'] = $_POST['nickname'].$extension;
-					$file['url'] = 'uploads/'.$_SESSION['user_username'] . '/' . $file["file_name"];
+					if($directory != $default_choice){
+						$file['url'] = 'uploads/'.$_SESSION['user_username'] . '/' . $directory .'/' . $file["file_name"];
+					}else{
+						$file['url'] = 'uploads/'.$_SESSION['user_username'] . '/' . $file["file_name"];
+					}
 	 				$file['id_user'] = $_SESSION['user_id'];
 	 				$file['date'] = getDatetimeNow();
 	 				if(extension_accept($file['file_name'])){
@@ -176,21 +186,41 @@
 	}
 
 
-	$folders = '';
-
 	function add_folder(){
 		$bool = false;
 		if(isset($_POST['sumbit_add_folder'])){
 			if(isset($_POST['new_folder_name']) AND $_POST['new_folder_name'] !== ''){
 				$name_folder = $_POST['new_folder_name'];
 				mkdir('uploads/'.$_SESSION['user_username'].'/'.$name_folder);
-				$folders[] = $name_folder;
-				$cpt++;
 				$bool = true;
 			}
 		}
+
 		return $bool;
 	}
+
+	function dirToArray($dir) {
+		$result = array();
+		$cdir = scandir($dir);
+		foreach ($cdir as $key => $value)
+		{
+			if (!in_array($value,array(".","..")))
+			{
+				if (is_dir($dir . DIRECTORY_SEPARATOR . $value))
+				{
+				    $result[$value] = dirToArray($dir . DIRECTORY_SEPARATOR . $value);
+		        }
+				else
+				{
+				    $result[] = $value;
+				}
+			}
+		}
+		return $result;
+	}
+		    	
+
+	
 
 
 ?>

@@ -99,6 +99,14 @@ body {
 .others_icons{
   margin-left: 45%;
 }
+.dossier{
+  width: 100%;
+  border : 1px solid #4bc970;
+  background: #4bc970;
+  color: #FFFFFF;
+  font-weight: bold;
+  border-radius: 10px; 
+}
 nav ul{
   width : 100%;
   display: flex;

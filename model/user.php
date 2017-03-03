@@ -66,6 +66,9 @@ function user_register($data)
     $user['secret_answer'] = $data['secret_answer'];
     mkdir('uploads/'.$user["username"]);
     db_insert('users', $user);
+    $date = give_me_date(); 
+    $actions = $date . ' -- ' .$user['username'] . ' has just registered.' ."\n"; 
+    watch_action_log('access.log',$actions);
 }
 
 function user_check_login($data)
@@ -90,6 +93,10 @@ function user_login($username)
         return false;
     $_SESSION['user_id'] = $data['id'];
     $_SESSION['user_username'] = $data['username'];
+    $date = give_me_date(); 
+    $actions = $date . ' -- ' .$username . ' has just log.' ."\n"; 
+    watch_action_log('access.log',$actions);
     return true;
+
 }
 ?>

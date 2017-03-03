@@ -29,9 +29,15 @@
 		    if(delete_file()){
 		    	header('Location: ?action=profil');
 		    }
+		    $dir = "uploads/".$_SESSION['user_username'];
 		    if(add_folder()){
 		    	$folder = 'hahaha';
 		    }
+		    $allmydirectory = dirToArray($dir);
+
+		    
+		    	
+		    //var_dump($add_folder());
 
 		    if(replace_file()){
 		    	header('Location: ?action=profil');
@@ -42,7 +48,7 @@
 		    }else{
 		    	$folder = 'hihihi';
 		    }*/
-
+		   
 		    require_once('views/profil.php');
 	    }else{
 	    	header('Location: ?action=login');
