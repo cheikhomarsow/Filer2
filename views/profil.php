@@ -69,33 +69,45 @@
         <div id="my_files">
             <?php
             foreach($my_files as $file){
-                if($formats[$file['file_name']]){
-                    $none = 'dossier';
-                    if(strlen($file['file_url'])>(strlen($_SESSION['user_username'])+9)){
-                        $dossier = substr($file['file_url'], strlen($_SESSION['user_username'])+ 9,-(strlen($file['file_name'])+1)); 
-                    }
-                    if($dossier == '')
-                        $none = 'none';
-                    echo "<div class='files'>";
-                    echo "<span><img src='web/img/user.png' alt='user'/>&nbsp;&nbsp;".$_SESSION['user_username']."</span>";
-                    echo "<img class='img' src='".$file['file_url']."' alt='img'/>";
-                    echo "<form action='?action=profil' method='POST'>
-                    <div class='file_name'>".$file['file_name']."</div>
-                    <div class='icons'>    
-                        <span><label for='".$file['file_url']."'><img title='supprimer' src='web/img/delete.png' title='supprimer' alt='settings'/></label></span>
-                        <span><a href='".$file['file_url']."' download><img src='web/img/download.png' alt='download'/></a></span>
-                    </div>
-                    <div class='".$none."'><img src='web/img/directory.png' alt='settings'/>&nbsp;&nbsp;".$dossier."</div>
-                    <input class='none' type='text' name='file_to_delete' value='".$file['file_url']."'>
-                    <input class='none' type='submit' name='submit_delete_file' id='".$file['file_url']."'>
+                $img = '';
+                $edit = '';
+                if($formats[$file['file_name']] == '.jpeg' || $formats[$file['file_name']] == '.jpg'
+                        || $formats[$file['file_name']] == '.png')
+                    $img = "<img class='img' src='".$file['file_url']."' alt='img'/>";  
+                else if($formats[$file['file_name']] == '.txt'){
+                    $img = "<img class='img' src='web/img/txt.png' alt='img'/>";
+                    //echo file_get_contents($file['file_url']);
+                    $edit = "<span><label for='".$file['file_url']."txt'><img title='supprimer' src='web/img/edit.png' title='edit' alt='edit'/></label></span>";
+                }
 
-                    <input class = 'none' type='text' name='current_file_name' value='".$file['file_name']."'>
-                    <input class='none' type='text' name='file_to_rename' value='".$file['file_url']."'>
-                    <input class = 'rename_box' type='text' name='new_file_name' placeHolder='Nouveau nom du fichier'>
-                    <input class = 'rename_box' type='submit' name='submit_rename_file'>
-                </form>";
-                echo "</div>";
-            }
+                else if($formats[$file['file_name']] == '.pdf')
+                    $img = "<img class='img' src='web/img/pdf.png' alt='img'/>";
+                $none = 'dossier';
+                if(strlen($file['file_url'])>(strlen($_SESSION['user_username'])+9))
+                    $dossier = substr($file['file_url'], strlen($_SESSION['user_username'])+ 9,-(strlen($file['file_name'])+1)); 
+                if($dossier == '')
+                    $none = 'none';
+                echo "<div class='files'>";
+                echo "<span><img src='web/img/user.png' alt='user'/>&nbsp;&nbsp;".$_SESSION['user_username']."</span>";
+                echo $img;
+                echo "<form action='?action=profil' method='POST'>
+                <div class='file_name'>".$file['file_name']."</div>
+                <div class='icons'>    
+                    <span><label for='".$file['file_url']."'><img title='supprimer' src='web/img/delete.png' title='supprimer' alt='settings'/></label></span>
+                    <span><a href='".$file['file_url']."' download><img src='web/img/download.png' alt='download'/></a></span>
+                    ".$edit."
+                </div>
+                <div class='".$none."'><img src='web/img/directory.png' alt='settings'/>&nbsp;&nbsp;".$dossier."</div>
+                <input class='none' type='text' name='file_to_delete' value='".$file['file_url']."'>
+                <input class='none' type='submit' name='submit_delete_file' id='".$file['file_url']."'>
+
+                <input class = 'none' type='text' name='current_file_name' value='".$file['file_name']."'>
+                <input class='none' type='text' name='file_to_rename' value='".$file['file_url']."'>
+                <input class = 'rename_box' type='text' name='new_file_name' placeHolder='Nouveau nom du fichier'>
+                <input class = 'rename_box' type='submit' name='submit_rename_file'>
+            </form>";
+            echo "</div>";
+
         }
         
      ?>

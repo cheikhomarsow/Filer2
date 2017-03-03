@@ -7,7 +7,7 @@ function home_action()
 {
     if (!empty($_SESSION['user_id']))
     {
-        $username = $user['username'];
+        $username = $_SESSION['user_username'];
         $all_files = all_files();
         $formats = array();
         $table_usernames = array();

@@ -30,24 +30,15 @@
 		    	header('Location: ?action=profil');
 		    }
 		    $dir = "uploads/".$_SESSION['user_username'];
-		    if(add_folder()){
-		    	$folder = 'hahaha';
-		    }
-		    $allmydirectory = dirToArray($dir);
-
 		    
-		    	
-		    //var_dump($add_folder());
+		    add_folder();
+
+		    $allmydirectory = dirToArray($dir);
 
 		    if(replace_file()){
 		    	header('Location: ?action=profil');
 		    }
 
-		    /*if(strlen($folders) == 0){
-		    	$folder = 'hahaha';
-		    }else{
-		    	$folder = 'hihihi';
-		    }*/
 		   
 		    require_once('views/profil.php');
 	    }else{
