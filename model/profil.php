@@ -219,8 +219,60 @@
 		return $result;
 	}
 		    	
-
+	function modif_file_txt(){
+		$bool = false;
+		if(isset($_POST['modif_txt'])){
+			if(isset($_POST['txt_content']) && isset($_POST['url_txt']) && $_POST['url_txt'] != ''){
+				$file = $_POST['url_txt'];
+				$txt_content = $_POST['txt_content'];
+				file_put_contents($file, $txt_content);
+				$bool = true;
+			}
+		}
+		return $bool;
+	}
 	
+	function move_file(){
+		$bool = false;
+		if(isset($_POST['submit_move_file'])){
+			if(isset($_POST['url_file_to_move']) && 
+				$_POST['url_file_to_move'] != '' &&
+				isset($_POST['name_file_to_move']) && 
+				$_POST['name_file_to_move'] != '' &&
+				$_POST['directory_move'] != ''){
+					$id_user = $_SESSION['user_id'];
+					$directory = $_POST['directory_move'];
+					$default_choice = 'Racine';
+					$racine = "uploads/".$_SESSION['user_username']."/";
+					$file_name = $_POST['name_file_to_move'];
+					$old_url = $_POST['url_file_to_move'];
+					if($directory !== $default_choice){
+						$racine = "uploads/".$_SESSION['user_username']."/".$directory."/";
+						$new_file_url = $racine.$file_name;
+						if(!find_one_secure("UPDATE files SET file_url = :new_file_url  WHERE id_user = :id_user AND file_url = :old_url",
+                            ['new_file_url' => $new_file_url,
+                             'old_url' => $old_url,
+                             'id_user' => $id_user])){
+							rename($old_url, $new_file_url);
+							$bool = true;
+						}
+					}else{
+						$new_racine = substr($old_url, 0, strlen($racine));
+						$new_file_url = $new_racine.$file_name;
+						
+						if(!find_one_secure("UPDATE files SET file_url = :new_file_url  WHERE id_user = :id_user AND file_url = :old_url",
+                            ['new_file_url' => $new_file_url,
+                             'old_url' => $old_url,
+                             'id_user' => $id_user])){
+							rename($old_url, $new_file_url);
+							$bool = true;
+						}
+					}
+				}
+		
+		}
+		return $bool;
+	}
 
 
 ?>

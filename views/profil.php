@@ -19,6 +19,8 @@
                 echo $add_file_succes.'<br>';
             if(!empty($folder))
                 echo $folder.'<br>';
+            if(!empty($move_file))
+                echo $move_file.'<br>';
             ?>
             <h5 id='add_file_or_folder'><span id='add_folder'><img src='web/img/folder.png' alt='settings'/>&nbsp;&nbsp;Créer un dossier</span><span id='add_file'><img src='web/img/upload.png' alt='settings'/>&nbsp;&nbsp;Ajouter un fichier</span></h5>
             <div id='form_for_add_file'>
@@ -64,6 +66,13 @@
                         <label for='input_replace_file_none'><img id='input_replace_file_none' class='others_icons' src='web/img/replace2.png' ></label><input type="submit" class='none' name="submit_replace_file" value="remplacer">
                     </form>
                 </div>  
+                <div class='none' id='form_for_move_file'>
+                    <form action="?action=profil" method="POST">
+                        <input type="file" name="file">
+                        <input type="text" name="file_name_to_replace" placeHolder="nom du fichier a replacer">
+                        <label for='input_replace_file_none'><img id='input_replace_file_none' class='others_icons' src='web/img/replace2.png' ></label><input type="submit" class='none' name="submit_replace_file" value="remplacer">
+                    </form>
+                </div>  
             </div>
         </div>
         <div id="my_files">
@@ -71,14 +80,20 @@
             foreach($my_files as $file){
                 $img = '';
                 $edit = '';
+                $textarea = ''; 
+
                 if($formats[$file['file_name']] == '.jpeg' || $formats[$file['file_name']] == '.jpg'
                         || $formats[$file['file_name']] == '.png')
                     $img = "<img class='img' src='".$file['file_url']."' alt='img'/>";  
                 else if($formats[$file['file_name']] == '.txt'){
                     $img = "<img class='img' src='web/img/txt.png' alt='img'/>";
-                    //echo file_get_contents($file['file_url']);
-                    $edit = "<span><label for='".$file['file_url']."txt'><img title='supprimer' src='web/img/edit.png' title='edit' alt='edit'/></label></span>";
-                }
+                    $edit = "<span class='edit_icon'><img title='Edit' src='web/img/edit.png' title='edit' alt='edit'/></span>";
+                    $textarea = "<div class='modif_txt_box'>
+                                    <textarea name='txt_content'>".file_get_contents($file['file_url'])."</textarea>
+                                    <input class='none' type='text' name='url_txt' value='".$file['file_url']."'>   
+                                    <input type='submit' name='modif_txt' value='Sauvegarder'>
+                                </div>";
+                }   
 
                 else if($formats[$file['file_name']] == '.pdf')
                     $img = "<img class='img' src='web/img/pdf.png' alt='img'/>";
@@ -92,24 +107,47 @@
                 echo $img;
                 echo "<form action='?action=profil' method='POST'>
                 <div class='file_name'>".$file['file_name']."</div>
-                <div class='icons'>    
-                    <span><label for='".$file['file_url']."'><img title='supprimer' src='web/img/delete.png' title='supprimer' alt='settings'/></label></span>
-                    <span><a href='".$file['file_url']."' download><img src='web/img/download.png' alt='download'/></a></span>
-                    ".$edit."
+                <div class='icons'>
+                    <div class='icons_box'>    
+                        <span><label for='".$file['file_url']."'><img title='supprimer' src='web/img/delete.png' title='supprimer' alt='settings'/></label></span>
+                        <span><a href='".$file['file_url']."' download><img src='web/img/download.png' alt='download'/></a></span>
+                        ".$edit."
+                        <span class='move_icon' ><img title='move' src='web/img/move.png' alt='move'/></span>
+                    </div>
+                    <div class='".$none."'><img src='web/img/directory.png' alt='settings'/>&nbsp;&nbsp;".$dossier."</div>
                 </div>
-                <div class='".$none."'><img src='web/img/directory.png' alt='settings'/>&nbsp;&nbsp;".$dossier."</div>
                 <input class='none' type='text' name='file_to_delete' value='".$file['file_url']."'>
                 <input class='none' type='submit' name='submit_delete_file' id='".$file['file_url']."'>
 
-                <input class = 'none' type='text' name='current_file_name' value='".$file['file_name']."'>
-                <input class='none' type='text' name='file_to_rename' value='".$file['file_url']."'>
-                <input class = 'rename_box' type='text' name='new_file_name' placeHolder='Nouveau nom du fichier'>
-                <input class = 'rename_box' type='submit' name='submit_rename_file'>
-            </form>";
+                <div class='rename_box'>
+                    <input class = 'none' type='text' name='current_file_name' value='".$file['file_name']."'>
+                    <input class='none' type='text' name='file_to_rename' value='".$file['file_url']."'>
+                    <input type='text' name='new_file_name' placeHolder='Nouveau nom du fichier'>
+                    <input type='submit' name='submit_rename_file'>
+                </div>    
+                
+                ".$textarea ?>
+                <?php 
+                    echo "<div class='move_box'>"; 
+                    if(is_array($allmydirectory) && !empty($allmydirectory)){
+                            echo "<select id='ask' name='directory_move'>";
+                            echo "<option value='Racine'>Racine</option>";
+                            foreach ($allmydirectory as $key => $value)
+                            {
+                                if(is_array($value)){
+                                    echo "<option value='".$key."'>".$key."</option>";
+                                }
+                            }
+                            echo "</select>";
+                        }            
+            echo "<input class='none' type='text' name='name_file_to_move' value='".$file['file_name']."'>";                        
+            echo "<input class='none' type='text' name='url_file_to_move' value='".$file['file_url']."'>";            
+            echo "<input type='submit' name='submit_move_file' value='Déplacer'>";
+            echo "</div>";
+            echo "</form>";
             echo "</div>";
 
         }
-        
      ?>
  </div>
 </div>

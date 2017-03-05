@@ -10,6 +10,7 @@
 		$folder = '';
 		$rename = '';
 		$replace = '';
+		$move_file = '';
 
 		if (!empty($_SESSION['user_id']))
 	    {
@@ -31,11 +32,21 @@
 		    }
 		    $dir = "uploads/".$_SESSION['user_username'];
 		    
-		    add_folder();
+		    if(add_folder()){
+		    	$folder = 'Dossier créé avec succes';
+		    }
 
 		    $allmydirectory = dirToArray($dir);
 
 		    if(replace_file()){
+		    	header('Location: ?action=profil');
+		    }
+		    if(modif_file_txt()){
+		    	header('Location: ?action=profil');
+		    }
+
+		    if(move_file()){
+		    	$move_file = 'move OK';
 		    	header('Location: ?action=profil');
 		    }
 

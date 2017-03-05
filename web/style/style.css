@@ -50,6 +50,7 @@ body {
   flex-direction : column;
   text-align: center;
   margin: 5px;
+  vertical-align: top;
 }
 .files form{
   width: 100%;
@@ -62,19 +63,19 @@ body {
   font-size: small;
   color : #24292E;
 }
-#form_delete,.none, #form_for_add_file, .rename_box{
+#form_delete,.none, #form_for_add_file, .rename_box, .modif_txt_box, .move_box{
   display: none;
 }
 
 #add_file, #other_params, #add_folder{
   cursor : pointer;
 }
-.icons{
+.icons_box{
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
-.icons span{
+.icons_box span{
   width : 100px;
   margin-top: 5px;
 }
@@ -109,6 +110,10 @@ body {
   color: #FFFFFF;
   font-weight: bold;
   border-radius: 10px; 
+}
+.move_box{
+  border: 1px solid black;
+  margin-top: 10px;
 }
 nav ul{
   width : 100%;
