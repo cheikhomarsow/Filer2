@@ -42,6 +42,9 @@
 		 					db_insert('files', $file);
 		 					move_uploaded_file($file_tmp_name, $file['url']);
 		 					$bool = true;
+		 					$date = give_me_date(); 
+    						$actions = $date . ' -- ' .$_SESSION['user_username'] . ' add file : '. $file['url'] ."\n"; 
+    						watch_action_log('access.log',$actions);
 	 					}
 	 				}
 				}
@@ -122,6 +125,9 @@
                              'id_user' => $id_user])){
 					unlink($file_url);
 					$bool = true;
+					$date = give_me_date(); 
+    				$actions = $date . ' -- ' .$_SESSION['user_username'] . ' delete file : '. $file_url ."\n"; 
+    				watch_action_log('access.log',$actions);
 				}
 			}
 		}
@@ -315,7 +321,6 @@
 								foreach ($value as $key2 => $value2) {
 									$file_url = $dir.'/'.$key.'/'.$value2;
 									$new_file_url = $dir.'/'.$new_folder_name.'/'.$value2;
-									
 									if(!find_one_secure("UPDATE files SET file_url = :new_file_url  WHERE id_user = :id_user AND file_url = :file_url",
 	                            	['new_file_url' => $new_file_url,
 	                             	'file_url' => $file_url,
@@ -323,7 +328,6 @@
 										rename($dir.'/'.$key, $dir.'/'.$new_folder_name);
 										$bool = true;
 									}
-							
 								}
 							
 							}else{
@@ -332,6 +336,31 @@
 						}
 					}
 				}
+			}
+		}
+		return $bool;
+	}
+
+	function delete_folder(){
+		$bool = false;
+		if(isset($_POST['submit_delete_folder'])){
+			if(isset($_POST['name_folder_to_delete']) && $_POST['name_folder_to_delete'] != ''){
+				$name_folder_to_delete = $_POST['name_folder_to_delete'];
+				$dir = 'uploads/'.$_SESSION['user_username'].'/'.$name_folder_to_delete;
+				$all_folders = dirToArray($dir);
+				$id_user = $_SESSION['user_id'];
+				foreach ($all_folders as $key => $value) {
+					if(isset($value)){
+						$url = $dir.'/'.$value;
+						if(!find_one_secure("DELETE FROM files WHERE file_url = :url AND id_user = :id_user",
+                            ['url' => $url,
+                             'id_user' => $id_user])){
+							unlink($url);
+							$bool = true;
+						}	
+					}
+				}
+				rmdir($dir);
 			}
 		}
 		return $bool;

@@ -99,6 +99,37 @@
                                 echo "<p><img src='web/img/file.png' alt='folder'/>&nbsp;&nbsp;".$value."</p>";
                             }
                         }
+                        if(is_array($allmydirectory) && !empty($allmydirectory)){
+                           
+                            echo "<form action='?action=profil' method='POST'>";
+                            echo "<select id='ask' name='old_folder_name'>";
+                                //echo "<option value='Racine'>Racine</option>";
+                                    foreach ($allmydirectory as $key => $value)
+                                    {
+                                        if(is_array($value)){
+                                            echo "<option value='".$key."'>".$key."</option>";
+                                        }
+                                    }
+                            echo "</select>
+                                    <input type='text' name='new_folder_name'>
+                                    <input type='submit' name='submit_rename_folder' value='renommer doosier'>
+                                    </form>";
+                                    echo "<form action='?action=profil' method='POST'>";
+                            echo "<pSupprimer un dossier</p>";
+                            echo "<select id='ask' name='name_folder_to_delete'>";
+                                //echo "<option value='Racine'>Racine</option>";
+                                    foreach ($allmydirectory as $key => $value)
+                                    {
+                                        if(is_array($value)){
+                                            echo "<option value='".$key."'>".$key."</option>";
+                                        }
+                                    }
+                            echo "</select>
+                                    <input type='submit' name='submit_delete_folder' value='Supprimer dossier'>
+                                    </form>";
+
+                        }            
+
                     }     
                 ?>
             </div>
@@ -115,7 +146,7 @@
                     else if($formats[$file['file_name']] == '.txt'){
                         $img = "<img class='img' src='web/img/txt.png' alt='img'/>";
                         $edit = "<span class='edit_icon'><img title='Edit' src='web/img/edit.png' title='edit' alt='edit'/></span>";
-                        $textarea = "<div>
+                        $textarea = "<div class='textarea_content'>
                                         <textarea name='txt_content'>".file_get_contents($file['file_url'])."</textarea>
                                         <input class='none' type='text' name='url_txt' value='".$file['file_url']."'>   
                                         <input type='submit' name='modif_txt' value='Sauvegarder'>
@@ -186,11 +217,7 @@
 </div>
            
                 
-                <form action='?action=profil' method='POST'>
-                                    <input type='text' name='old_folder_name'>
-                                    <input type='text' name='new_folder_name'>
-                                    <input type='submit' name='submit_rename_folder' value='renommer doosier'>
-                                    </form>
+                
                 
         
 </div>

@@ -4,7 +4,6 @@
         <meta charset="utf-8">
         <title>Register</title>
         <link rel="stylesheet" href="web/style/style.css">
-        <script src="web/script/verif.js"></script>
     </head>
     <body>
       <div id="container">

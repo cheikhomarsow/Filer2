@@ -58,6 +58,10 @@
 		    	header('Location: ?action=profil');
 		    	exit(0);
 		    }
+		    if(delete_folder()){
+		    	header('Location: ?action=profil');
+		    	exit(0);
+		    }
 		    require_once('views/profil.php');
 	    }else{
 	    	header('Location: ?action=login');
