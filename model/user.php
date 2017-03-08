@@ -30,23 +30,24 @@ function user_check_register($data)
 {
     if (empty($data['username']) OR empty($data['password']) OR 
         empty($data['repeat_password']) OR empty($data['secret_ask'])){
-            /*empty($data['secret_ask']) OR empty($data['secret_answer'])*/
         return false;
     }
         
     $data2 = get_user_by_username($data['username']);
     if ($data2 !== false){
         return false;
-        
     }
     // TODO : Check valid username, password, secret ask
     if(strlen($data['username'])<6){
         return false;
     }
-    $regexp = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$";    
-    /*if(!preg_match($regexp, $password))
+    if($data['password'] !== $data['repeat_password']){
         return false;
-    */
+    }
+    
+    $regexp = "/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/";    
+    if(!preg_match($regexp, $data['password']))
+        return false;
     return true;
 }
 

@@ -15,6 +15,10 @@ function login_action()
         }
         else {
             $error = "Invalid username or password";
+            $username = $_POST['username'];
+            $date = give_me_date(); 
+            $actions = $date . ' -- ' .$username . ' could not log.' ."\n"; 
+            watch_action_log('security.log',$actions);
         }
     }
     require('views/login.php');

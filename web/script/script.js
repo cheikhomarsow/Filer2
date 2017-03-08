@@ -5,8 +5,8 @@ window.onload = function(){
 	var other_params_bis = document.querySelector('#other_params_bis');
 	var other_params_box = document.querySelector('#other_params_box');
 
-	var rename_box = document.querySelectorAll(".rename_box");
-    var rename_file = document.querySelector("#rename_file");
+	/*var rename_box = document.querySelectorAll(".rename_box");
+    var rename_file = document.querySelector("#rename_file");*/
 
     var add_folder = document.querySelector('#add_folder');
 	var form_for_add_folder = document.querySelector('#form_for_add_folder');
@@ -43,9 +43,7 @@ window.onload = function(){
 
 	for (var i = 0; i < edit_icon.length; i++) {
 		edit_icon[i].onclick = function(){ 
-			//(this.parentNode.parentNode.childNodes[13]).style.display = 'block';
-			//console.log('ok');
-			console.log(this.parentNode.parentNode.childNodes[12]);
+			(this.parentNode.parentNode.parentNode.childNodes[9]).style.display = 'block';
 		};
 	}
 
@@ -53,8 +51,15 @@ window.onload = function(){
 
 	for (var k = 0; k < move_icon.length; k++) {
 		move_icon[k].onclick = function(){ 
-			(this.parentNode.parentNode.parentNode.childNodes[13]).style.display = 'block';
-			//console.log(this.parentNode.parentNode.childNodes[13]);
+			(this.parentNode.parentNode.parentNode.childNodes[11]).style.display = 'block';
+		};
+	}
+
+	var rename_icon = document.querySelectorAll(".rename_icon");
+
+	for (var k = 0; k < move_icon.length; k++) {
+		rename_icon[k].onclick = function(){ 
+			(this.parentNode.parentNode.parentNode.childNodes[7]).style.display = 'block';
 		};
 	}
 };

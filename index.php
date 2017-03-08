@@ -16,5 +16,5 @@ if (isset($routes[$action]))
     call_user_func($action.'_action');
 }
 else
-    die('Illegal route');
+    die('Illegal route , action = '.$action);
 ?>

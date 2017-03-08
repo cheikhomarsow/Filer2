@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Register</title>
         <link rel="stylesheet" href="web/style/style.css">
+        <script src="web/script/verif.js"></script>
     </head>
     <body>
       <div id="container">
@@ -11,8 +12,9 @@
         <div id="containe_box">
           <?php if (!empty($error)): ?>
           <p>Error : <?php echo $error ?></p>
+          <div id='errorBlock'></div>
           <?php endif; ?>
-          <form action="?action=register" method="POST" id="register-form">
+          <form action="?action=register" method="POST" name="form" id="register-form">
               <h1>Sign Up</h1>
           
               <fieldset>
@@ -26,7 +28,9 @@
                   <label for="username">Nom d'utlisateur <span class="star">*</span></label>
                   <input type="text" id="username" name="username">
             
-                
+                  <span id='spanVerifPassword'></span>
+                  <span id="#comparePassword"></span>
+                  <span id="#spanPassword"></span>
                   <label for="password">Mot de passe <span class="star">*</span></label>
                   <input type="password" id="password" name="password">
 

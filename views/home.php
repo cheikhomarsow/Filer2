@@ -23,7 +23,11 @@
                 else if($formats[$file['file_name']] == '.txt')
                     $img = "<img class='img' src='web/img/txt.png' alt='img'/>";
                 else if($formats[$file['file_name']] == '.pdf')
-                    $img = "<img class='img' src='web/img/pdf.png' alt='img'/>";
+                    $img = "<embed src='".$file['file_url']."'/>";
+                else if($formats[$file['file_name']] == '.mp3')
+                    $img = "<audio src='".$file['file_url']."' controls></audio>";
+                else if($formats[$file['file_name']] == '.mp4')
+                    $img = "<video src='".$file['file_url']."' controls></video>";
     
                 echo "<div class='files'>";
                 echo "<span><img src='web/img/user.png' alt='user'/>&nbsp;&nbsp;".$table_usernames[$cpt2]."</span>";

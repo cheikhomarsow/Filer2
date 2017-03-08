@@ -36,11 +36,25 @@ body {
   width: 50%;
 }
 #my_files{
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: stretch;
+}
+#all_folders_box{
+  border: 1px solid #f4f7f8;;
+  width: 80%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
   flex-flow : row wrap;
+}
+#all_folders{
+  width: 15%;
+  background: rgb(234,238,187);
+  border-radius: 20px; 
 }
 .files{
   width: 20%;
@@ -52,11 +66,12 @@ body {
   margin: 5px;
   vertical-align: top;
 }
+
 .files form{
   width: 100%;
 }
 
-.files .img{
+.files .img, .files embed, .files audio, .files video{
   width: 100%;
 }
 .welcome{
@@ -106,7 +121,7 @@ body {
 .dossier{
   width: 100%;
   border : 1px solid #4bc970;
-  background: #4bc970;
+  background: rgb(54,57,62);
   color: #FFFFFF;
   font-weight: bold;
   border-radius: 10px; 
@@ -114,6 +129,10 @@ body {
 .move_box{
   border: 1px solid black;
   margin-top: 10px;
+}
+
+#all_folders .sous_dossier{
+  margin-left: 20%;
 }
 nav ul{
   width : 100%;

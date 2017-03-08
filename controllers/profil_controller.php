@@ -19,6 +19,7 @@
 		    }
 		    if(rename_file()){
 		    	header('Location: ?action=profil');
+		    	exit(0);
 		    }
 		    
 		    $my_files = my_files();
@@ -29,6 +30,7 @@
 
 		    if(delete_file()){
 		    	header('Location: ?action=profil');
+		    	exit(0);
 		    }
 		    $dir = "uploads/".$_SESSION['user_username'];
 		    
@@ -40,17 +42,22 @@
 
 		    if(replace_file()){
 		    	header('Location: ?action=profil');
+		    	exit(0);
 		    }
 		    if(modif_file_txt()){
 		    	header('Location: ?action=profil');
+		    	exit(0);
 		    }
 
 		    if(move_file()){
 		    	$move_file = 'move OK';
 		    	header('Location: ?action=profil');
+		    	exit(0);
 		    }
-
-		   
+		    if(rename_folder()){
+		    	header('Location: ?action=profil');
+		    	exit(0);
+		    }
 		    require_once('views/profil.php');
 	    }else{
 	    	header('Location: ?action=login');
